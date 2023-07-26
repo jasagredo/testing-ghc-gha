@@ -49,7 +49,7 @@ jobs:
         repository: input-output-hk/cardano-node
       
     - name: Move project.local
-      run: mv .github/workflows/cabal.project.local.MINGW64_NT-10.0-20348 cabal.project.local
+      run: mv .github/workflows/cabal.project.local.ci.MINGW64_NT-10.0-20348 cabal.project.local
 
     - name: Cabal update
       run: cabal update
