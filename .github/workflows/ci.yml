@@ -43,9 +43,6 @@ jobs:
       with:
         use-sodium-vrf: false
 
-    - name: Install packages via pacman
-      run: pacman -S mingw-w64-x86_64-libsodium
-
     - name: Checkout node
       uses: actions/checkout@v3
       with:
