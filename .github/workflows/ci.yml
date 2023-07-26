@@ -69,7 +69,7 @@ jobs:
       run: cabal build all --dry-run
 
     - name: Build core
-      run: cabal build cardano-node cardano-cli cardano-node-chairman cardano-submit-api -j1
+      run: cabal build cardano-node cardano-cli cardano-node-chairman cardano-submit-api
 
     - name: Build others
       run: cabal build all
