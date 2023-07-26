@@ -24,7 +24,7 @@ jobs:
     steps:
 
     - name: Install Haskell
-      uses: input-output-hk/setup-haskell@12a59cd8576793d863f23ad6953f54cf1ef3bcbe
+      uses: input-output-hk/setup-haskell@fe5b9ad87385afd5c9892b2d000bd01902823847
       id: setup-haskell
       with:
         ghc-version: ${{ matrix.ghc }}
