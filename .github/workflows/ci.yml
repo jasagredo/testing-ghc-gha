@@ -37,7 +37,7 @@ jobs:
         limit-access-to-actor: true
 
     - name: Install Haskell
-      uses: input-output-hk/setup-haskell@d0321ff42fd8c9b595b6949e1dbe2621c467c46d
+      uses: input-output-hk/setup-haskell@0426c24f24770f5b2b0c8575f326272645b877b4
       id: setup-haskell
       with:
         ghc-version: ${{ matrix.ghc }}
