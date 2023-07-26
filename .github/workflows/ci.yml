@@ -34,12 +34,12 @@ jobs:
 
     steps:
     - name: Install Base libs
-      uses: input-output-hk/actions/base@4693a7989391143463d4d70d1697b32b2687b954
+      uses: input-output-hk/actions/base@c6eb96f3fd74bd879be0d2d7e6d520b08d5aeb6e
       with:
         use-sodium-vrf: false
 
     - name: Install Haskell
-      uses: input-output-hk/actions/haskell@4693a7989391143463d4d70d1697b32b2687b954
+      uses: input-output-hk/actions/haskell@c6eb96f3fd74bd879be0d2d7e6d520b08d5aeb6e
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
