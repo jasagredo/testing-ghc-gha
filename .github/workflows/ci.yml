@@ -18,7 +18,7 @@ jobs:
           shell: ${{ matrix.sys.shell }}
     
     env:
-      MSYSTEM: MSYS
+      MSYSTEM: MINGW64
       # do not ever change to $HOME by yourself.
       CHERE_INVOKING: 1
       # do we want to inherit the path?
