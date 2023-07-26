@@ -12,7 +12,7 @@ jobs:
         ghc: ["9.2.8"]
         cabal: ["3.10.1.0"]
         sys:
-          - { os: windows-latest, shell: 'C:\\msys64\\usr\\bin\\bash.exe -leo pipefail {0}' }
+          - { os: windows-latest, shell: 'C:/msys64/usr/bin/bash.exe -e {0}' }
           - { os: ubuntu-latest,  shell: bash  }
           - { os: macos-latest,   shell: bash  }
     defaults:
@@ -38,16 +38,14 @@ jobs:
 
     - name: Install Haskell
       uses: input-output-hk/setup-haskell@0426c24f24770f5b2b0c8575f326272645b877b4
-      id: setup-haskell
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
 
-    - name: Install secp256k1
-      uses: input-output-hk/setup-secp256k1@v1
+    - name: Install Base libs
+      uses: input-output-hk/actions/base@latest
       with:
-        git-ref: ${{ env.SECP256K1_REF }}
-        cache-version: ${{ env.SECP_CACHE_VERSION }}
+        use-sodium-vrf: false
 
     - name: Install packages via pacman
       run: pacman -S mingw-w64-x86_64-libsodium
