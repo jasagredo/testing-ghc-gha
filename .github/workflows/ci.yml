@@ -53,6 +53,9 @@ jobs:
       run: |
         if [[ '${{ runner.os }}' == 'Windows' ]]; then
           mv .github/workflows/cabal.project.local.ci.MINGW64_NT-10.0-20348 cabal.project.local
+          pkg-config --list-all
+          pkg-config --list-all --debug
+          which pkg-config
         elif [[ '${{ runner.os }}' == 'Linux' ]]; then
           mv .github/workflows/cabal.project.local.ci.Linux cabal.project.local
         else 
