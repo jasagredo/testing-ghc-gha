@@ -13,6 +13,8 @@ jobs:
         cabal: ["3.10.1.0"]
         sys:
           - { os: windows-latest, shell: 'C:/msys64/usr/bin/bash.exe -e {0}' }
+          - { os: ubuntu-latest, shell: bash }
+          - { os: macos-latest, shell: bash }
     defaults:
         run:
           shell: ${{ matrix.sys.shell }}
@@ -28,23 +30,19 @@ jobs:
       # current ref from: 27.02.2022
       SECP256K1_REF: ac83be33d0956faf6b7f61a60ab524ef7d6a473a
 
-    runs-on: windows-latest
+    runs-on: ${{ matrix.sys.os }}
 
     steps:
-
-    - name: Install Haskell
-      uses: input-output-hk/setup-haskell@0426c24f24770f5b2b0c8575f326272645b877b4
-      with:
-        ghc-version: ${{ matrix.ghc }}
-        cabal-version: ${{ matrix.cabal }}
-
     - name: Install Base libs
-      uses: input-output-hk/actions/base@latest
+      uses: input-output-hk/actions/base@ef6de2ef86d6e342590286796ef0c5d7b1eaa1c9
       with:
         use-sodium-vrf: false
 
-    - name: Install packages via pacman
-      run: /usr/bin/pacman -S --noconfirm mingw-w64-x86_64-openssl
+    - name: Install Haskell
+      uses: input-output-hk/actions/haskell@ef6de2ef86d6e342590286796ef0c5d7b1eaa1c9
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: ${{ matrix.cabal }}
 
     - name: Checkout node
       uses: actions/checkout@v3
@@ -52,28 +50,27 @@ jobs:
         repository: input-output-hk/cardano-node
       
     - name: Move project.local
-      run: mv .github/workflows/cabal.project.local.ci.MINGW64_NT-10.0-20348 cabal.project.local
+      run: |
+        if [[ '${{ runner.os }}' == 'Windows' ]]; then
+          mv .github/workflows/cabal.project.local.ci.MINGW64_NT-10.0-20348 cabal.project.local
+        elif [[ '${{ runner.os }}' == 'Linux' ]]; then
+          mv .github/workflows/cabal.project.local.ci.Linux cabal.project.local
+        else 
+          mv .github/workflows/cabal.project.local.ci.Darwin cabal.project.local
+        fi
 
     - name: Cabal update
       run: cabal update
 
-    - name: Dry-run
-      continue-on-error: true
+    - name: Dry run
       run: cabal build all --dry-run
 
     - name: Build core
-      continue-on-error: true
       run: cabal build cardano-node cardano-cli cardano-node-chairman cardano-submit-api -j1
 
     - name: Build others
-      continue-on-error: true
       run: cabal build all
 
     - name: Test
-      continue-on-error: true
-      run: cabal test cardano-testnet cardano-node cardano-node-chairman cardano-cli cardano-submit-api
+      run: cabal test cardano-testnet cardano-node cardano-node-chairman cardano-submit-api
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      with:
-        limit-access-to-actor: true
