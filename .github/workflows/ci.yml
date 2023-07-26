@@ -11,6 +11,14 @@ jobs:
       matrix:
         ghc: ["9.2.8"]
         cabal: ["3.10.1.0"]
+        sys:
+          - { os: windows-latest, shell: 'C:\\msys64\\usr\\bin\\bash.exe -leo pipefail {0}' }
+          - { os: ubuntu-latest,  shell: bash  }
+          - { os: macos-latest,   shell: bash  }
+    defaults:
+        run:
+          shell: ${{ matrix.sys.shell }}
+      
 
     runs-on: windows-latest
 
@@ -29,7 +37,7 @@ jobs:
         limit-access-to-actor: true
 
     - name: Install Haskell
-      uses: input-output-hk/setup-haskell@753bbe1326cdd24e4306d1543bdfd08f6d134c4d
+      uses: input-output-hk/setup-haskell@d0321ff42fd8c9b595b6949e1dbe2621c467c46d
       id: setup-haskell
       with:
         ghc-version: ${{ matrix.ghc }}
