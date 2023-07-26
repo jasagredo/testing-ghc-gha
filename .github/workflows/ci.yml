@@ -44,9 +44,7 @@ jobs:
         use-sodium-vrf: false
 
     - name: Install packages via pacman
-      run: |
-        echo $PATH
-        /usr/bin/pacman -S mingw-w64-x86_64-openssl
+      run: /usr/bin/pacman -S --noconfirm mingw-w64-x86_64-openssl
 
     - name: Checkout node
       uses: actions/checkout@v3
