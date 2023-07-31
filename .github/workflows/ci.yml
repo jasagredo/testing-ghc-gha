@@ -37,7 +37,7 @@ jobs:
         use-sodium-vrf: false
 
     - name: Install Haskell
-      uses: input-output-hk/actions/haskell@5f8b68b34e41d0e6f8ab3c2037f020ed19e99eac
+      uses: input-output-hk/actions/haskell@a2b25bdbfa4aa4395faaee9140feb5f3179d59a4
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
