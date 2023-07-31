@@ -32,7 +32,7 @@ jobs:
 
     steps:
     - name: Install Base libs
-      uses: input-output-hk/actions/base@90be550c9e4309032409e748acbaba6fa85ae793
+      uses: input-output-hk/actions/base@a2b25bdbfa4aa4395faaee9140feb5f3179d59a4
       with:
         use-sodium-vrf: false
 
