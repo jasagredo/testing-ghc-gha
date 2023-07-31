@@ -13,8 +13,6 @@ jobs:
         cabal: ["3.10.1.0"]
         sys:
           - { os: windows-latest, shell: 'C:/msys64/usr/bin/bash.exe -e {0}' }
-          - { os: ubuntu-latest, shell: bash }
-          - { os: macos-latest, shell: bash }
     defaults:
         run:
           shell: ${{ matrix.sys.shell }}
@@ -34,46 +32,19 @@ jobs:
 
     steps:
     - name: Install Base libs
-      uses: input-output-hk/actions/base@c6eb96f3fd74bd879be0d2d7e6d520b08d5aeb6e
+      uses: input-output-hk/actions/base@e08883c8eb3d59b7e1ac93d4bb41009b9df9b9bf
       with:
         use-sodium-vrf: false
 
     - name: Install Haskell
-      uses: input-output-hk/actions/haskell@c6eb96f3fd74bd879be0d2d7e6d520b08d5aeb6e
+      uses: input-output-hk/actions/haskell@e08883c8eb3d59b7e1ac93d4bb41009b9df9b9bf
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
+        pacman-packages: >
+          tree
+          moreutils
 
-    - name: Checkout node
-      uses: actions/checkout@v3
-      with:
-        repository: input-output-hk/cardano-node
-      
-    - name: Move project.local
+    - name: Run
       run: |
-        if [[ '${{ runner.os }}' == 'Windows' ]]; then
-          mv .github/workflows/cabal.project.local.ci.MINGW64_NT-10.0-20348 cabal.project.local
-          pkg-config --list-all
-          pkg-config --list-all --debug
-          which pkg-config
-        elif [[ '${{ runner.os }}' == 'Linux' ]]; then
-          mv .github/workflows/cabal.project.local.ci.Linux cabal.project.local
-        else 
-          mv .github/workflows/cabal.project.local.ci.Darwin cabal.project.local
-        fi
-
-    - name: Cabal update
-      run: cabal update
-
-    - name: Dry run
-      run: cabal build all --dry-run
-
-    - name: Build core
-      run: cabal build cardano-node cardano-cli cardano-node-chairman cardano-submit-api
-
-    - name: Build others
-      run: cabal build all
-
-    - name: Test
-      run: cabal test cardano-testnet cardano-node cardano-node-chairman cardano-submit-api
-
+        tree .
