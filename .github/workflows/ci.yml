@@ -45,6 +45,7 @@ jobs:
       run: cabal update
 
     - name: run
+      shell: bash
       run: ./run.sh
 
     - name: Setup tmate session
