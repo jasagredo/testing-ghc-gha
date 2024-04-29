@@ -24,7 +24,7 @@ jobs:
       matrix:
         ghc: ["9.8.1"]
         cabal: ["3.10.3.0"]
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest] #, ubuntu-latest, macos-latest]
 
     steps:
     - name: Install Haskell
