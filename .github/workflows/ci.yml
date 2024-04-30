@@ -24,7 +24,7 @@ jobs:
       matrix:
         ghc: ["9.8.1"]
         cabal: ["3.10.3.0"]
-        os: [windows-latest] #, ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
     - name: Install Haskell
@@ -33,6 +33,11 @@ jobs:
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+         limit-access-to-actor: true
 
     - name: Install system dependencies
       uses: input-output-hk/actions/base@js/fix-runner-issues
@@ -47,9 +52,3 @@ jobs:
     - name: run
       shell: bash
       run: ./run.sh
-
-    - name: Setup tmate session
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
-      with:
-         limit-access-to-actor: true
