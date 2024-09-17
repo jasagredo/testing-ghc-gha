@@ -24,31 +24,10 @@ jobs:
       matrix:
         ghc: ["9.8.1"]
         cabal: ["3.10.3.0"]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-13, windows-latest]
 
     steps:
-    - name: Install Haskell
-      uses: input-output-hk/actions/haskell@js/fix-runner-issues
-      id: setup-haskell
-      with:
-        ghc-version: ${{ matrix.ghc }}
-        cabal-version: ${{ matrix.cabal }}
-
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
          limit-access-to-actor: true
-
-    - name: Install system dependencies
-      uses: input-output-hk/actions/base@js/fix-runner-issues
-      with:
-        use-sodium-vrf: true # default is true
-
-    - uses: actions/checkout@v4
-
-    - name: Cabal update
-      run: cabal update
-
-    - name: run
-      shell: bash
-      run: ./run.sh
