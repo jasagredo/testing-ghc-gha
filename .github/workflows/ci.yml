@@ -20,15 +20,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: install cddlc
-      continue-on-error: true
-      run: |
-       gem install cddlc
+    - uses: ruby/setup-ruby@v1
+      with:
+        # Not needed with a .ruby-version file
+        ruby-version: 2.7
+        # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: true
 
-    - name: run cddlc
+    # run RSpec tests
+    - run: bundle install cddlc
       continue-on-error: true
-      run: |
-       cddlc --version
 
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
