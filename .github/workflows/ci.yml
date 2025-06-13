@@ -21,11 +21,12 @@ jobs:
 
     steps:
     - name: install cddlc
+      continue-on-error: true
       run: |
        gem install cddlc
 
     - name: run cddlc
-      continue-on-failure: true
+      continue-on-error: true
       run: |
        cddlc --version
 
