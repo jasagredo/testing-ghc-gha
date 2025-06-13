@@ -17,16 +17,18 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        ghc: ["9.8.1"]
-        cabal: ["3.10.3.0"]
-        os: [ubuntu-latest, macos-13, windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
+    - name: install cddlc
+      run: |
+       gem install cddlc
+
+    - name: run cddlc
+      continue-on-failure: true
+      run: |
+       cddlc --version
+
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
