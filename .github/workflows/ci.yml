@@ -27,6 +27,11 @@ jobs:
         msystem: clang64
     - name: "blah"
       run: uname -a
+    - name: "bleh"
+      run: echo $SHELL
+    - name: "Path"
+      run: echo $PATH
+    - uses: actions/checkout@v6
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
@@ -42,6 +47,13 @@ jobs:
     steps:
     - name: "blah"
       run: uname -a
+    - name: "blah"
+      run: uname -a
+    - name: "bleh"
+      run: echo $SHELL
+    - name: "Path"
+      run: echo $PATH
+    - uses: actions/checkout@v6
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
