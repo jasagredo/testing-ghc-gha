@@ -25,8 +25,8 @@ jobs:
     - uses: msys2/setup-msys2@v2
       with:
         msystem: clang64
-      run: |
-      uname -a
+    - name: "blah"
+      run: uname -a
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
@@ -37,11 +37,11 @@ jobs:
     defaults:
       run:
         shell: 'C:/msys64/usr/bin/bash.exe -e {0}'
-    steps:
-    - env:
+    env:
         MSYSTEM: CLANG64
-      run: |
-      uname -a
+    steps:
+    - name: "blah"
+      run: uname -a
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
